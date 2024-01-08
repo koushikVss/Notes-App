@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prod-build":"npx prisma db push && npx prisma generate && next build",
-    "prod-install":"npm install && prisma generate "
+    "prod-build":"npx prisma db push && npx prisma generate && next build"
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
