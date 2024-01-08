@@ -69,7 +69,7 @@ function Home() {
             className='  mt-2 flex flex-col px-3 sm:px-3 md:px-3 lg:px-3 py-2 lg:py-4 sm:py-1 md:py-1  '>
             <div className='overflow-hidden text-overflow-ellipsis whitespace-nowrap' style={{ fontSize: '1.4rem' }} >
               {
-                note.title.length > windowWidth ? `${note.note.slice(0, windowWidth)}..` : note.title
+                note.title.length > windowWidth ? `${note.title.slice(0, windowWidth)}..` : note.title
               }
 
             </div>
