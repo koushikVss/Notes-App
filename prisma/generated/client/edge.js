@@ -166,13 +166,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL_PRISMA_URL",
+        "fromEnvVar": "POSTGRES_PRISMA_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "ZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgPSAicG9zdGdyZXNxbCIKICB1cmwgICAgICA9IGVudigiREFUQUJBU0VfVVJMX1BSSVNNQV9VUkwiKQogIGRpcmVjdFVybCA9IGVudigiREFUQUJBU0VfVVJMX1VSTF9OT05fUE9PTElORyIpIAp9CgpnZW5lcmF0b3IgY2xpZW50IHsKICBwcm92aWRlciA9ICJwcmlzbWEtY2xpZW50LWpzIgogIG91dHB1dCA9ICIuL2dlbmVyYXRlZC9jbGllbnQiCn0KCi8vIE1vZGVsIGZvciB1c2VycyAKbW9kZWwgVXNlcnMgewogIGlkICAgICAgICBTdHJpbmcgICBAaWQgQGRlZmF1bHQodXVpZCgpKQogIG5hbWUgICAgICBTdHJpbmcKICBlbWFpbCAgICAgU3RyaW5nICAgQHVuaXF1ZQogIHBhc3N3b3JkICBTdHJpbmcKICBub3RlcyBOb3Rlc1tdCn0KCi8vIE1vZGVsIGZvciBub3Rlcwptb2RlbCBOb3RlcyB7CiAgaWQgICAgICAgIFN0cmluZyAgIEBpZCBAZGVmYXVsdCh1dWlkKCkpCiAgdGl0bGUgICAgIFN0cmluZz8KICBub3RlICAgICAgU3RyaW5nPwogIHVwZGF0ZWRBdCBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBjcmVhdGVkQXQgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpCiAgdXNlciAgICAgIFVzZXJzICAgIEByZWxhdGlvbihmaWVsZHM6IFt1c2VySWRdLCByZWZlcmVuY2VzOiBbaWRdKQogIHVzZXJJZCAgICBTdHJpbmcKfQo=",
-  "inlineSchemaHash": "e350c851c686f6fd0f640a81b6fb58ef0ecf83bf1f1d1505504e8f9faa21af4e",
+  "inlineSchema": "ZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgPSAicG9zdGdyZXNxbCIKICB1cmwgPSBlbnYoIlBPU1RHUkVTX1BSSVNNQV9VUkwiKSAvLyB1c2VzIGNvbm5lY3Rpb24gcG9vbGluZwogIGRpcmVjdFVybCA9IGVudigiUE9TVEdSRVNfVVJMX05PTl9QT09MSU5HIikgLy8gdXNlcyBhIGRpcmVjdCBjb25uZWN0aW9uCn0KCmdlbmVyYXRvciBjbGllbnQgewogIHByb3ZpZGVyID0gInByaXNtYS1jbGllbnQtanMiCiAgb3V0cHV0ID0gIi4vZ2VuZXJhdGVkL2NsaWVudCIKfQoKLy8gTW9kZWwgZm9yIHVzZXJzIAptb2RlbCBVc2VycyB7CiAgaWQgICAgICAgIFN0cmluZyAgIEBpZCBAZGVmYXVsdCh1dWlkKCkpCiAgbmFtZSAgICAgIFN0cmluZwogIGVtYWlsICAgICBTdHJpbmcgICBAdW5pcXVlCiAgcGFzc3dvcmQgIFN0cmluZwogIG5vdGVzIE5vdGVzW10KfQoKLy8gTW9kZWwgZm9yIG5vdGVzCm1vZGVsIE5vdGVzIHsKICBpZCAgICAgICAgU3RyaW5nICAgQGlkIEBkZWZhdWx0KHV1aWQoKSkKICB0aXRsZSAgICAgU3RyaW5nPwogIG5vdGUgICAgICBTdHJpbmc/CiAgdXBkYXRlZEF0IERhdGVUaW1lIEBkZWZhdWx0KG5vdygpKQogIGNyZWF0ZWRBdCBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICB1c2VyICAgICAgVXNlcnMgICAgQHJlbGF0aW9uKGZpZWxkczogW3VzZXJJZF0sIHJlZmVyZW5jZXM6IFtpZF0pCiAgdXNlcklkICAgIFN0cmluZwp9Cg==",
+  "inlineSchemaHash": "a63f5fcd34a3986b9e84edb49e609ce2eccd1dd0390835717f161eefee484f14",
   "noEngine": false
 }
 config.dirname = '/'
@@ -183,7 +183,7 @@ config.getQueryEngineWasmModule = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    DATABASE_URL_PRISMA_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL_PRISMA_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL_PRISMA_URL || undefined
+    POSTGRES_PRISMA_URL: typeof globalThis !== 'undefined' && globalThis['POSTGRES_PRISMA_URL'] || typeof process !== 'undefined' && process.env && process.env.POSTGRES_PRISMA_URL || undefined
   }
 })
 
