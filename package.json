@@ -8,12 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "prod-build":"npx prisma db push && npx prisma generate && next build",
-    "prod-install":"prisma generate && npm install"
+    "prod-install":"npm install && prisma generate "
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
     "axios": "^1.6.2",
-    
+
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.2",
