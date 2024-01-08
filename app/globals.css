@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -14,9 +14,9 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,4 +24,89 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+.no-input:focus {
+  border: none;
+  outline: none;
+}
+
+.no-input {
+  color: white;
+}
+/*
+.notepad {
+  width: 100%;
+  height: 100dvh;
+  padding: 10px;
+  background-color: rgb(19, 19, 22);
+  border: none;
+  resize: none;
+}*/
+
+.notepad-title-1 {
+
+  width: 100%;
+  min-height: auto;
+  /* Adjust as needed */
+  /* padding: 10px; */
+  background-color: rgb(19, 19, 22);
+  border: none;
+  resize: none;
+  /* Prevent resizing (optional) */
+}
+
+.notepad {
+  width: 100%;
+  min-height: 100%;
+
+  /* Styling */
+  border: none;
+  /* Remove default border */
+  /* padding: 1rem; */
+  /* Add some padding for comfort */
+  /* font-family: monospace; */
+  /* Optional: set a preferred font */
+  resize: none;
+  /* Prevent manual resizing */
+
+  /* Overflow Handling */
+  overflow: inherit;
+  /* Enable scrolling when content overflows */
+}
+
+
+
+
+
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(19, 19, 22);
+}
+
+.place-holder {
+  color: rgb(80, 77, 77);
+}
+
+.bg {
+  background-color: rgb(19, 19, 22)
+}
+
+.bg-color-black {
+  background-color: rgb(59, 59, 63);
+
+}
+
+.bg-dropdown {
+  background-color: rgb(13, 13, 14);
+}
+
+.bg-input {
+  background-color: rgb(48, 49, 54);
+}
+
+input:active {
+  border: none;
 }
