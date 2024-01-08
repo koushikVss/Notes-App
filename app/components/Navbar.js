@@ -46,8 +46,10 @@ const Navbar = () => {
       {user && (
         <div className="flex space-x-2">
           <div>
-            <div id="profile-icon" className='flex gap-x-3'>
-              {user.name}
+            <div id="profile-icon" className='flex gap-x-3  '>
+              <div className ='mt-2' style={{fontSize:'0.6rem'}}>
+                {user.email}
+              </div>
               <svg width="24" height="24" onClick={e => handleProfileClick(e)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-user">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>

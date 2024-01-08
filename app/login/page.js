@@ -36,6 +36,7 @@ const login = () => {
 
     const Login = (e) => {
         e.preventDefault()
+        setmessage("Logging in...")
         axios.post("/api/login", { email, password })
             .then(res => {
                 if (res.status === 200) {
