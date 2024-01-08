@@ -5,7 +5,7 @@ import navbarComponent from "../components/Navbar";
 export default function Page() {
     const [val, setval] = useState(null);
     let d = "null";
-    d = localStorage.getItem("test")
+    // d = localStorage.getItem("test")
 
     // useEffect(() => {
 
