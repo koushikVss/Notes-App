@@ -6,17 +6,17 @@ import jwt from 'jsonwebtoken'
 import prisma from '../PrismaClient'
 
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
     // await connectDB()
     // const user = await User.findOne({ email: req.body.email, password: req.body.password })
     const { email, Password } = req.body
-    const user = await prisma.users.findUnique ({
+    const user = await prisma.users.findUnique({
         where: {
             email, Password
         }
     })
     await prisma.$disconnect()
-    console.log("user: ",user)
+    console.log("user: ", user)
     if (!user || user === null) {
 
         res.status(401).json({ message: "Invalid credentials try again" })
@@ -29,4 +29,10 @@ const login = async (req, res, next) => {
     res.status(200).json({ message: "logged in", token: token })
 }
 
-export default login;
+
+const handler = (req, res) => {
+    if (req.method === "POST") {
+        login(req, res)
+    }
+}
+export default handler;
