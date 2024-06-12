@@ -1,0 +1,70 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Clob;
+import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
+
+public class InsertClobIntoDB2 {
+
+    public static void main(String[] args) {
+        // Database connection parameters
+        String url = "jdbc:db2://yourdbhost:yourdbport/yourdbname";
+        String username = "yourusername";
+        String password = "yourpassword";
+
+        // The path to your private key file
+        String filePath = "path/to/your/private_key.pem";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            // Load the DB2 JDBC driver
+            Class.forName("com.ibm.db2.jcc.DB2Driver");
+
+            // Establish the connection
+            conn = DriverManager.getConnection(url, username, password);
+            conn.setAutoCommit(false); // Disable auto-commit
+
+            // Prepare the SQL insert statement
+            String sql = "INSERT INTO my_table (id, private_key) VALUES (?, ?)";
+            pstmt = conn.prepareStatement(sql);
+
+            // Set the ID value
+            int id = 1; // Example ID value
+            pstmt.setInt(1, id);
+
+            // Read the private key file into a Reader
+            File file = new File(filePath);
+            Reader reader = new FileReader(file);
+            pstmt.setClob(2, reader, (int) file.length());
+
+            // Execute the statement
+            pstmt.executeUpdate();
+
+            // Commit the transaction
+            conn.commit();
+            System.out.println("Private key inserted successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+        } finally {
+            // Clean up
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+}
