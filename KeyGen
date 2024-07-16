@@ -1,0 +1,60 @@
+import org.bouncycastle.bcpg.ArmoredOutputStream;
+import org.bouncycastle.openpgp.*;
+import org.bouncycastle.openpgp.operator.bc.*;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.*;
+import java.security.spec.RSAKeyGenParameterSpec;
+
+public class PGPKeyGenerator {
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
+
+    public static void generateKeyPair(String userId, String passphrase, String publicKeyPath, String privateKeyPath) throws PGPException, NoSuchAlgorithmException, NoSuchProviderException, IOException {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA", "BC");
+        keyPairGenerator.initialize(new RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4));
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+
+        PGPKeyPair pgpKeyPair = new BcPGPKeyPair(PGPPublicKey.RSA_GENERAL, keyPair, new Date());
+        PGPDigestCalculator sha1Calc = new BcPGPDigestCalculatorProvider().get(PGPDigestCalculator.SHA1);
+
+        PGPKeyRingGenerator keyRingGen = new PGPKeyRingGenerator(
+                PGPSignature.POSITIVE_CERTIFICATION,
+                pgpKeyPair,
+                userId,
+                sha1Calc,
+                null,
+                null,
+                new BcPGPContentSignerBuilder(pgpKeyPair.getPublicKey().getAlgorithm(), PGPUtil.SHA256),
+                new BcPBESecretKeyEncryptorBuilder(PGPEncryptedData.AES_256, sha1Calc).build(passphrase.toCharArray())
+        );
+
+        // Export public key
+        try (ArmoredOutputStream pubOut = new ArmoredOutputStream(new FileOutputStream(publicKeyPath))) {
+            keyRingGen.generatePublicKeyRing().encode(pubOut);
+        }
+
+        // Export private key
+        try (ArmoredOutputStream secOut = new ArmoredOutputStream(new FileOutputStream(privateKeyPath))) {
+            keyRingGen.generateSecretKeyRing().encode(secOut);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            String userId = "your_user_id";
+            String passphrase = "your_passphrase";
+            String publicKeyPath = "publicKey.asc";
+            String privateKeyPath = "privateKey.asc";
+
+            generateKeyPair(userId, passphrase, publicKeyPath, privateKeyPath);
+            System.out.println("PGP keys generated successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
