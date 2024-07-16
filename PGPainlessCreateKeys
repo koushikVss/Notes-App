@@ -1,0 +1,52 @@
+import org.pgpainless.PGPainless;
+import org.pgpainless.key.collection.PGPKeyRing;
+import org.pgpainless.key.generation.KeySpec;
+import org.pgpainless.key.generation.type.KeyType;
+import org.pgpainless.key.generation.type.rsa.RsaLength;
+import org.pgpainless.key.protection.Passphrase;
+import org.pgpainless.util.PassphraseUtil;
+import org.bouncycastle.openpgp.PGPException;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+
+public class PGPKeyGeneration {
+
+    public static void main(String[] args) {
+        try {
+            String userId = "your-email@example.com";
+            String passphrase = "your-secure-passphrase";
+
+            // Generate the key pair
+            PGPKeyRing keyRing = generateKeyPair(userId, passphrase);
+
+            // Save the keys to files
+            saveKeyRingToFile(keyRing, "public-key.asc", "private-key.asc");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static PGPKeyRing generateKeyPair(String userId, String passphrase) 
+            throws PGPException, InvalidAlgorithmParameterException, NoSuchAlgorithmException {
+        return PGPainless.buildKeyRing()
+                .setPrimaryKey(KeySpec.getBuilder(KeyType.RSA(RsaLength._2048)))
+                .addUserId(userId)
+                .setPassphrase(PassphraseUtil.fromPassword(passphrase))
+                .build();
+    }
+
+    public static void saveKeyRingToFile(PGPKeyRing keyRing, String publicKeyPath, String privateKeyPath) throws IOException {
+        try (FileOutputStream pubOut = new FileOutputStream(publicKeyPath);
+             FileOutputStream privOut = new FileOutputStream(privateKeyPath)) {
+
+            // Save the public key
+            PGPainless.extractCertificate(keyRing).encode(pubOut);
+
+            // Save the private key
+            keyRing.getSecretKeys().encode(privOut);
+        }
+    }
+}
